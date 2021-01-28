@@ -11,21 +11,21 @@ import java.util.ArrayList;
 
 public class CustomAdapter extends BaseAdapter {
     private Activity activity;
-    private ArrayList<Articles> articles;
+    private ArrayList<Content> contents;
 
-    public CustomAdapter(Activity activity, ArrayList<Articles> articles) {
+    public CustomAdapter(Activity activity, ArrayList<Content> contents) {
         this.activity = activity;
-        this.articles = articles;
+        this.contents = contents;
     }
 
     @Override
     public int getCount() {
-        return articles.size();
+        return contents.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return articles.get(position);
+        return contents.get(position);
     }
 
     @Override
@@ -41,9 +41,9 @@ public class CustomAdapter extends BaseAdapter {
         TextView tvTitle = view.findViewById(R.id.text_title);
         TextView tvSection = view.findViewById(R.id.text_section);
         TextView tvAuthor = view.findViewById(R.id.text_PublicationDate);
-        tvTitle.setText(articles.get(position).getWebTitle().substring(0, 29) + "...");
-        tvSection.setText(articles.get(position).getSectionName());
-        tvAuthor.setText(articles.get(position).getWebPublicationDate());
+        tvTitle.setText(contents.get(position).getWebUrl().substring(0, 29) + "...");
+        tvSection.setText(contents.get(position).getSectionName());
+        tvAuthor.setText(contents.get(position).getWebPublicationDate());
 
         return view;
     }

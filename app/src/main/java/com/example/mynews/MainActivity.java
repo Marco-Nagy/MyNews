@@ -32,14 +32,17 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         CallableInterface callable = retrofit.create(CallableInterface.class);
-        Call<NewsModel> newsModelCall = callable.getData();
+        Call<NewsModel> newsModelCall = callable.getData("4c61ebe0-3ed4-4234-ae56-9a5a7afe9bb7");
         newsModelCall.enqueue(new Callback<NewsModel>() {
             @Override
             public void onResponse(Call<NewsModel> call, Response<NewsModel> response) {
                 pb.setVisibility(View.INVISIBLE);
                 NewsModel newsModel = response.body();
-                Log.d("json", "data" + newsModel.getArticles().get(0).getWebTitle());
-                showListView(newsModel.getArticles());
+                if (newsModel != null && newsModel.getResponse() != null) {
+                    Log.d("json", "data" + newsModel.getResponse().get(0).getWebTitle());
+                    showListView(newsModel.getResponse());
+                }
+
             }
 
             @Override
@@ -51,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void showListView(ArrayList<Articles> articles) {
+    private void showListView(ArrayList<Content> articles) {
         CustomAdapter adapter = new CustomAdapter(this, articles);
         ListView lv = findViewById(R.id.list_view);
         lv.setAdapter(adapter);
