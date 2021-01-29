@@ -1,67 +1,78 @@
 package com.example.mynews;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
-import android.net.Uri;
+import android.content.Context;
+import android.content.CursorLoader;
+import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import androidx.loader.content.Loader;
 
 import java.util.ArrayList;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+public class MainActivity extends AppCompatActivity implements androidx.loader.app.LoaderManager.LoaderCallbacks<ArrayList<Results>> {
+    ArrayList<Results> results;
+    public   static final String GUARDIAN_REQUEST_URL =
+            "http://content.guardianapis.com/search?q=debates&api-key=e28f4de4-285b-4ea8-bc6f-0a8175543863";
+    private static final int NEWS_LOADER_ID = 1;
+    private static final String TAG = "MainActivity";
 
-public class MainActivity extends AppCompatActivity {
+    ListView mListView;
+    TextView mTextView;
+    CustomAdapter mAdapter;
+    ProgressBar mProgressBar;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+        mListView = (ListView) findViewById(R.id.list_view);
+        mProgressBar = (ProgressBar) findViewById(R.id.progres);
+        mTextView = (TextView) findViewById(R.id.text_view);
 
-        ProgressBar pb = findViewById(R.id.progres);
-        Retrofit retrofit = new Retrofit
-                .Builder()
-                .baseUrl("https://content.guardianapis.com")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        CallableInterface callable = retrofit.create(CallableInterface.class);
-        Call<NewsModel> newsModelCall = callable.getData("4c61ebe0-3ed4-4234-ae56-9a5a7afe9bb7");
-        newsModelCall.enqueue(new Callback<NewsModel>() {
-            @Override
-            public void onResponse(Call<NewsModel> call, Response<NewsModel> response) {
-                pb.setVisibility(View.INVISIBLE);
-                NewsModel newsModel = response.body();
-                if (newsModel != null && newsModel.getResponse() != null) {
-                    Log.d("json", "data" + newsModel.getResponse().get(0).getWebTitle());
-                    showListView(newsModel.getResponse());
-                }
+        if (networkInfo != null && networkInfo.isConnected()) {
+          android.app.LoaderManager loaderManager=getLoaderManager();
+          loaderManager.getLoader(NEWS_LOADER_ID);
 
-            }
+        } else {
+            mProgressBar.setVisibility(View.GONE);
+            mTextView.setVisibility(View.VISIBLE);
+            mTextView.setText(R.string.no_internet_text);
+        }
+    }
+    NewsModel newsModel = new NewsModel();
 
-            @Override
-            public void onFailure(Call<NewsModel> call, Throwable t) {
-                pb.setVisibility(View.INVISIBLE);
-                Log.d("json", "Error" + t.getMessage());
+    @NonNull
+    @Override
+    public Loader<ArrayList<Results>> onCreateLoader(int id, @Nullable Bundle args) {
+        return new NewsLoader(this, GUARDIAN_REQUEST_URL);
 
-            }
-        });
     }
 
-    private void showListView(ArrayList<Content> articles) {
-        CustomAdapter adapter = new CustomAdapter(this, articles);
-        ListView lv = findViewById(R.id.list_view);
-        lv.setAdapter(adapter);
-        lv.setOnItemClickListener((parent, view, position, id) -> {
-            Uri link = Uri.parse(articles.get(position).getWebUrl());
-            Intent i = new Intent(Intent.ACTION_VIEW, link);
-            startActivity(i);
-        });
+    @Override
+    public void onLoadFinished(@NonNull Loader<ArrayList<Results>> loader, ArrayList<Results> results) {
+        mAdapter = new CustomAdapter(this, results);
+        mProgressBar.setVisibility(View.GONE);
+        mListView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<ArrayList<Results>> loader) {
+
     }
 }
