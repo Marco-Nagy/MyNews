@@ -1,29 +1,24 @@
 package com.example.mynews;
-
-import android.content.Context;
-import android.content.CursorLoader;
-import android.database.Cursor;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import androidx.loader.content.Loader;
-
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements androidx.loader.app.LoaderManager.LoaderCallbacks<ArrayList<Results>> {
     ArrayList<Results> results;
-    public   static final String GUARDIAN_REQUEST_URL =
+    public static final String GUARDIAN_REQUEST_URL =
             "http://content.guardianapis.com/search?q=debates&api-key=e28f4de4-285b-4ea8-bc6f-0a8175543863";
     private static final int NEWS_LOADER_ID = 1;
     private static final String TAG = "MainActivity";
@@ -32,7 +27,6 @@ public class MainActivity extends AppCompatActivity implements androidx.loader.a
     TextView mTextView;
     CustomAdapter mAdapter;
     ProgressBar mProgressBar;
-
 
 
     @Override
@@ -46,8 +40,8 @@ public class MainActivity extends AppCompatActivity implements androidx.loader.a
         mTextView = (TextView) findViewById(R.id.text_view);
 
         if (networkInfo != null && networkInfo.isConnected()) {
-          android.app.LoaderManager loaderManager=getLoaderManager();
-          loaderManager.getLoader(NEWS_LOADER_ID);
+            android.app.LoaderManager loaderManager = getLoaderManager();
+            loaderManager.getLoader(NEWS_LOADER_ID);
 
         } else {
             mProgressBar.setVisibility(View.GONE);
@@ -55,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements androidx.loader.a
             mTextView.setText(R.string.no_internet_text);
         }
     }
-    NewsModel newsModel = new NewsModel();
+
 
     @NonNull
     @Override
@@ -69,10 +63,22 @@ public class MainActivity extends AppCompatActivity implements androidx.loader.a
         mAdapter = new CustomAdapter(this, results);
         mProgressBar.setVisibility(View.GONE);
         mListView.setAdapter(mAdapter);
-    }
 
+        Log.d("json", "data: "+results.get(0).getUrl());
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Uri link = Uri.parse(results.get(position).getUrl());
+                Log.d("json", "data: "+results.get(0).getUrl());
+                Intent i = new Intent(Intent.ACTION_VIEW, link);
+                startActivity(i);
+            }
+        });
+
+        }
     @Override
     public void onLoaderReset(@NonNull Loader<ArrayList<Results>> loader) {
+
 
     }
 }

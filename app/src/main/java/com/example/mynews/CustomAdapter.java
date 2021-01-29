@@ -44,9 +44,9 @@ public class CustomAdapter extends BaseAdapter {
         TextView tvTitle = view.findViewById(R.id.text_title);
         TextView tvSection = view.findViewById(R.id.text_section);
         TextView tvAuthor = view.findViewById(R.id.text_PublicationDate);
-        tvTitle.setText(results.get(position).getWebTitle().substring(0, 29) + "...");
-        tvSection.setText(results.get(position).getSectionName());
-        tvAuthor.setText(results.get(position).getWebPublicationDate());
+        tvTitle.setText(results.get(position).getTitle().substring(0, 29) + "...");
+        tvSection.setText(results.get(position).getSection());
+        tvAuthor.setText(results.get(position).getDate());
 
         return view;
     }
