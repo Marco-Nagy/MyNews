@@ -112,8 +112,10 @@ public class Query {
                 String section = currentNews.getString("sectionName");
                 String date = currentNews.getString("webPublicationDate");
                 String url = currentNews.getString("webUrl");
-                String author = currentNews.getString("author");
-
+//                JSONObject root =new JSONObject();
+//                JSONArray tagsArray= root.getJSONArray("tags");
+//                JSONObject mAuthor =tagsArray.getJSONObject(3);
+                String author = json.optString("webTitle","authorName");
                 Results newsObject = new Results(section, date, title, url,author);
                 newsResults.add(newsObject);
             }

@@ -11,10 +11,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.content.Loader;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements androidx.loader.app.LoaderManager.LoaderCallbacks<ArrayList<Results>> {
@@ -22,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements androidx.loader.a
     String apiKey = "e28f4de4-285b-4ea8-bc6f-0a8175543863";
 
     String URL =
-            "https://content.guardianapis.com/search?&show-tags=contributor&api-key="+apiKey;
+            "https://content.guardianapis.com/search?&show-tags=contributor&api-key=" + apiKey;
 
     private static final int NEWS_LOADER_ID = 1;
     private static final String TAG = "MainActivity";
@@ -46,9 +48,11 @@ public class MainActivity extends AppCompatActivity implements androidx.loader.a
             getSupportLoaderManager().initLoader(NEWS_LOADER_ID, null, this).forceLoad();
 
         } else {
-            mProgressBar.setVisibility(View.GONE);
             mTextView.setVisibility(View.VISIBLE);
-            mListView.setEmptyView(mTextView);
+            mTextView.setText(R.string.no_internet_text);
+            mProgressBar.setVisibility(View.VISIBLE);
+
+
         }
     }
 
@@ -64,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements androidx.loader.a
     public void onLoadFinished(@NonNull Loader<ArrayList<Results>> loader, ArrayList<Results> results) {
         mAdapter = new CustomAdapter(this, results);
         mProgressBar.setVisibility(View.GONE);
-        if (mAdapter!=null){
+        if (mAdapter != null) {
             mListView.setAdapter(mAdapter);
         }
         Log.d("json", "data: " + results.get(0).getUrl());
