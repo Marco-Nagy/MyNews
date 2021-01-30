@@ -113,9 +113,9 @@ public class Query {
                 String date = currentNews.getString("webPublicationDate");
                 String url = currentNews.getString("webUrl");
 //                JSONObject root =new JSONObject();
-//                JSONArray tagsArray= root.getJSONArray("tags");
-//                JSONObject mAuthor =tagsArray.getJSONObject(3);
-                String author = json.optString("webTitle","authorName");
+//                JSONArray tagsArray= root.getJSONArray("fields");
+//                JSONObject mAuthor =tagsArray.getJSONObject(0);
+                String author =json.optString("byline","authorName");
                 Results newsObject = new Results(section, date, title, url,author);
                 newsResults.add(newsObject);
             }
