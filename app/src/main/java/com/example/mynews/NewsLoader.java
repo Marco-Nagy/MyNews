@@ -11,15 +11,15 @@ import java.util.ArrayList;
 public class NewsLoader extends AsyncTaskLoader<ArrayList<Results>> {
     public String url;
 
-    public NewsLoader(@NonNull Context context,String url) {
+    public NewsLoader(@NonNull Context context, String url) {
         super(context);
-        this.url=url;
+        this.url = url;
     }
 
     @Nullable
     @Override
     public ArrayList<Results> loadInBackground() {
-        if(url == null) {
+        if (url == null) {
 
         }
         return Query.fetchNewsData(url);

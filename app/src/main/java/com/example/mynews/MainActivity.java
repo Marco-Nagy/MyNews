@@ -1,4 +1,5 @@
 package com.example.mynews;
+
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -10,10 +11,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.content.Loader;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements androidx.loader.app.LoaderManager.LoaderCallbacks<ArrayList<Results>> {
@@ -40,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements androidx.loader.a
         mTextView = (TextView) findViewById(R.id.text_view);
 
         if (networkInfo != null && networkInfo.isConnected()) {
-            getSupportLoaderManager().initLoader(NEWS_LOADER_ID, null ,this).forceLoad();
+            getSupportLoaderManager().initLoader(NEWS_LOADER_ID, null, this).forceLoad();
 
         } else {
             mProgressBar.setVisibility(View.GONE);
@@ -63,18 +66,19 @@ public class MainActivity extends AppCompatActivity implements androidx.loader.a
         mProgressBar.setVisibility(View.GONE);
         mListView.setAdapter(mAdapter);
 
-        Log.d("json", "data: "+results.get(0).getUrl());
+        Log.d("json", "data: " + results.get(0).getUrl());
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Uri link = Uri.parse(results.get(position).getUrl());
-                Log.d("json", "data: "+results.get(0).getUrl());
+                Log.d("json", "data: " + results.get(0).getUrl());
                 Intent i = new Intent(Intent.ACTION_VIEW, link);
                 startActivity(i);
             }
         });
 
     }
+
     @Override
     public void onLoaderReset(@NonNull Loader<ArrayList<Results>> loader) {
 

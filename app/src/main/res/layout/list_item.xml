@@ -7,21 +7,22 @@
     android:layout_margin="16dp"
     app:cardCornerRadius="@dimen/_20sdp"
     app:cardElevation="6dp"
-  app:cardPreventCornerOverlap="true">
+    app:cardPreventCornerOverlap="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="5">
+
         <TextView
             android:id="@+id/text_title"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
-            android:padding="@dimen/_15sdp"
             android:background="@color/dark_blue"
             android:gravity="start"
+            android:padding="@dimen/_15sdp"
             android:textAppearance="?android:textAppearanceLarge"
             android:textColor="@color/yellow"
             android:textSize="@dimen/_21sdp"
@@ -57,14 +58,13 @@
             android:layout_weight="1"
             android:background="@color/yellow"
             android:gravity="end"
+            android:paddingEnd="@dimen/_12sdp"
             android:textAppearance="?android:textAppearanceLarge"
             android:textColor="@color/dark_blue"
             android:textSize="@dimen/_15ssp"
             android:textStyle="bold"
             android:typeface="sans"
-           android:paddingEnd="@dimen/_12sdp"
             tools:text="Publication Date" />
-
 
 
     </LinearLayout>
