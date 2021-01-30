@@ -40,8 +40,7 @@ public class MainActivity extends AppCompatActivity implements androidx.loader.a
         mTextView = (TextView) findViewById(R.id.text_view);
 
         if (networkInfo != null && networkInfo.isConnected()) {
-            android.app.LoaderManager loaderManager = getLoaderManager();
-            loaderManager.getLoader(NEWS_LOADER_ID);
+            getSupportLoaderManager().initLoader(NEWS_LOADER_ID, null ,this).forceLoad();
 
         } else {
             mProgressBar.setVisibility(View.GONE);
@@ -75,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements androidx.loader.a
             }
         });
 
-        }
+    }
     @Override
     public void onLoaderReset(@NonNull Loader<ArrayList<Results>> loader) {
 

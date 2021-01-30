@@ -9,77 +9,65 @@
     app:cardElevation="6dp"
   app:cardPreventCornerOverlap="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <View
-            android:id="@+id/view"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:alpha=".4"
-            android:background="#000"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-
+        android:orientation="vertical"
+        android:weightSum="5">
         <TextView
             android:id="@+id/text_title"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_70sdp"
-            android:background="#CB0E0D0D"
-            android:gravity="top"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:padding="@dimen/_15sdp"
+            android:background="@color/dark_blue"
+            android:gravity="start"
             android:textAppearance="?android:textAppearanceLarge"
-            android:textColor="#E6D436"
-            android:textSize="@dimen/_22ssp"
+            android:textColor="@color/yellow"
+            android:textSize="@dimen/_21sdp"
             android:textStyle="bold"
             android:typeface="serif"
-            android:paddingStart="@dimen/_12sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:text="News App" />
 
         <TextView
             android:id="@+id/text_section"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="#CB0E0D0D"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/dark_blue"
             android:gravity="start"
-            android:padding="@dimen/_12sdp"
+            android:paddingStart="@dimen/_12sdp"
             android:textAppearance="?android:textAppearanceLarge"
             android:textColor="@color/white"
-            android:textSize="@dimen/_20ssp"
+            android:textSize="@dimen/_18ssp"
             android:textStyle="bold"
             android:typeface="monospace"
-            app:layout_constraintBottom_toTopOf="@+id/text_PublicationDate"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_title"
+            tools:layout_editor_absoluteY="-2dp"
             tools:text="Section" />
 
         <TextView
             android:id="@+id/text_PublicationDate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="#CB0E0D0D"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/yellow"
             android:gravity="end"
-            android:padding="@dimen/_12sdp"
             android:textAppearance="?android:textAppearanceLarge"
-            android:textColor="@color/teal_200"
-            android:textSize="@dimen/_19ssp"
+            android:textColor="@color/dark_blue"
+            android:textSize="@dimen/_15ssp"
             android:textStyle="bold"
-            android:typeface="monospace"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:typeface="sans"
+           android:paddingEnd="@dimen/_12sdp"
             tools:text="Publication Date" />
 
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>
 

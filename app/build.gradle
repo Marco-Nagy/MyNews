@@ -39,5 +39,5 @@ dependencies {
     implementation 'com.intuit.ssp:ssp-android:1.0.6'
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     //noinspection GradleCompatible
-    implementation "com.android.support:support-core-utils:28.0.0"
+    implementation 'androidx.legacy:legacy-support-core-utils:1.0.0'
 }
