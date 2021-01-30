@@ -21,8 +21,10 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements androidx.loader.app.LoaderManager.LoaderCallbacks<ArrayList<Results>> {
     ArrayList<Results> results;
-    public static final String GUARDIAN_REQUEST_URL =
-            "http://content.guardianapis.com/search?q=debates&api-key=e28f4de4-285b-4ea8-bc6f-0a8175543863";
+    String apiKey = BuildConfig.THE_GUARDIAN_API_KEY;
+String URL =
+            "http://content.guardianapis.com/search?q=debates&show-tags=contributor&api-key=" +apiKey;
+
     private static final int NEWS_LOADER_ID = 1;
     private static final String TAG = "MainActivity";
 
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements androidx.loader.a
         } else {
             mProgressBar.setVisibility(View.GONE);
             mTextView.setVisibility(View.VISIBLE);
-            mTextView.setText(R.string.no_internet_text);
+            mListView.setEmptyView(mTextView);
         }
     }
 
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements androidx.loader.a
     @NonNull
     @Override
     public Loader<ArrayList<Results>> onCreateLoader(int id, @Nullable Bundle args) {
-        return new NewsLoader(this, GUARDIAN_REQUEST_URL);
+        return new NewsLoader(this, URL);
 
     }
 
@@ -64,16 +66,20 @@ public class MainActivity extends AppCompatActivity implements androidx.loader.a
     public void onLoadFinished(@NonNull Loader<ArrayList<Results>> loader, ArrayList<Results> results) {
         mAdapter = new CustomAdapter(this, results);
         mProgressBar.setVisibility(View.GONE);
-        mListView.setAdapter(mAdapter);
-
-        Log.d("json", "data: " + results.get(0).getUrl());
+        if (mAdapter!=null){
+            mListView.setAdapter(mAdapter);
+        }
+        Log.d("json", "data: " + results.get(0).getAuthor());
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Uri link = Uri.parse(results.get(position).getUrl());
                 Log.d("json", "data: " + results.get(0).getUrl());
-                Intent i = new Intent(Intent.ACTION_VIEW, link);
-                startActivity(i);
+                Intent intent = new Intent(Intent.ACTION_VIEW, link);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+
+                    startActivity(intent);  //where intent is your intent
+                }
             }
         });
 

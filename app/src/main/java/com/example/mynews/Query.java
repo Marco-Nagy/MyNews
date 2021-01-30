@@ -112,8 +112,9 @@ public class Query {
                 String section = currentNews.getString("sectionName");
                 String date = currentNews.getString("webPublicationDate");
                 String url = currentNews.getString("webUrl");
+                String author = currentNews.getString("author");
 
-                Results newsObject = new Results(section, date, title, url);
+                Results newsObject = new Results(section, date, title, url,author);
                 newsResults.add(newsObject);
             }
 

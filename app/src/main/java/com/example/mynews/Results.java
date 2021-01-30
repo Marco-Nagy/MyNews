@@ -12,13 +12,7 @@ public class Results implements Serializable {
     private String title;
 
     private String url;
-
-    public Results(String section, String date, String title, String url) {
-        this.section = section;
-        this.date = date;
-        this.title = title;
-        this.url = url;
-    }
+    private String author;
 
     public String getSection() {
         return section;
@@ -34,5 +28,18 @@ public class Results implements Serializable {
 
     public String getUrl() {
         return url;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public Results(String section, String date, String title, String url, String author) {
+        this.section = section;
+        this.date = date;
+        this.title = title;
+        this.url = url;
+        this.author = author;
+
     }
 }

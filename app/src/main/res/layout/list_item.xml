@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="5">
+        android:weightSum="6">
 
         <TextView
             android:id="@+id/text_title"
@@ -25,12 +25,31 @@
             android:padding="@dimen/_15sdp"
             android:textAppearance="?android:textAppearanceLarge"
             android:textColor="@color/yellow"
-            android:textSize="@dimen/_21sdp"
+            android:textSize="@dimen/_20sdp"
             android:textStyle="bold"
             android:typeface="serif"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="News App" />
+
+        <TextView
+            android:id="@+id/text_author"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/dark_blue"
+            android:gravity="end"
+            android:paddingEnd="@dimen/_12sdp"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_18ssp"
+            android:textStyle="bold"
+            android:typeface="serif"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="-2dp"
+            tools:text="Section" />
 
         <TextView
             android:id="@+id/text_section"
