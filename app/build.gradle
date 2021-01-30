@@ -15,10 +15,6 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    buildTypes.each {
-        it.buildConfigField 'String', 'THE_GUARDIAN_API_KEY', 'APPLICATION_ID'
-    }
-
     buildTypes {
         release {
             minifyEnabled false

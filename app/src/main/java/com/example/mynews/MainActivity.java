@@ -11,23 +11,21 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.content.Loader;
-
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements androidx.loader.app.LoaderManager.LoaderCallbacks<ArrayList<Results>> {
     ArrayList<Results> results;
-    String apiKey = BuildConfig.THE_GUARDIAN_API_KEY;
-String URL =
-            "http://content.guardianapis.com/search?q=debates&show-tags=contributor&api-key=" +apiKey;
+    String apiKey = "e28f4de4-285b-4ea8-bc6f-0a8175543863";
+
+    String URL =
+            "https://content.guardianapis.com/search?&show-tags=contributor&api-key="+apiKey;
 
     private static final int NEWS_LOADER_ID = 1;
     private static final String TAG = "MainActivity";
-
     ListView mListView;
     TextView mTextView;
     CustomAdapter mAdapter;
@@ -69,7 +67,7 @@ String URL =
         if (mAdapter!=null){
             mListView.setAdapter(mAdapter);
         }
-        Log.d("json", "data: " + results.get(0).getAuthor());
+        Log.d("json", "data: " + results.get(0).getUrl());
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
