@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,13 +20,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.content.Loader;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements androidx.loader.app.LoaderManager.LoaderCallbacks<ArrayList<Results>> {
     ArrayList<Results> results;
+
     String apiKey = "e28f4de4-285b-4ea8-bc6f-0a8175543863";
 
     String URL =
-            "https://content.guardianapis.com/search?&show-tags=contributor&api-key=" + apiKey;
+            "https://content.guardianapis.com/search?&api-key=" + apiKey+"&show-fields=byline";
 
     private static final int NEWS_LOADER_ID = 1;
     private static final String TAG = "MainActivity";

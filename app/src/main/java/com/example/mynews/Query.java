@@ -112,11 +112,9 @@ public class Query {
                 String section = currentNews.getString("sectionName");
                 String date = currentNews.getString("webPublicationDate");
                 String url = currentNews.getString("webUrl");
-//                JSONObject root =new JSONObject();
-//                JSONArray tagsArray= root.getJSONArray("fields");
-//                JSONObject mAuthor =tagsArray.getJSONObject(0);
-                String author =json.optString("byline","authorName");
-                Results newsObject = new Results(section, date, title, url,author);
+                JSONObject mAuthor = currentNews.getJSONObject("fields");
+                String author=   mAuthor.optString("byline");
+                Results newsObject = new Results(section, date, title, url, author);
                 newsResults.add(newsObject);
             }
 
